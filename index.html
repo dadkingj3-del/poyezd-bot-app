@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuzatuv Qo'shish</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--tg-theme-bg-color, #f4f4f9);
+      color: var(--tg-theme-text-color, #222);
+      margin: 0;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .card {
+      background: var(--tg-theme-secondary-bg-color, #ffffff);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 16px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    select, input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 15px;
+      background: var(--tg-theme-bg-color, #fff);
+      color: var(--tg-theme-text-color, #000);
+    }
+    .checkbox-group, .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 6px;
+    }
+    .checkbox-item, .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: normal;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-primary {
+      background-color: var(--tg-theme-button-color, #2481cc);
+      color: var(--tg-theme-button-text-color, #ffffff);
+    }
+    .btn-danger {
+      background-color: #e53935;
+      color: #fff;
+    }
+    .btn-secondary {
+      background-color: #757575;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h3 style="margin-top:0; text-align: center;">🚆 Poyezd Kuzatuvini Sozlash</h3>
+    
+    <label for="from">Qayerdan:</label>
+    <select id="from">
+      <option value="Hazorasp" selected>Hazorasp</option>
+      <option value="Toshkent">Toshkent</option>
+      <option value="Samarqand">Samarqand</option>
+      <option value="Buxoro">Buxoro</option>
+      <option value="Xiva">Xiva</option>
+      <option value="Urganch">Urganch</option>
+      <option value="Nukus">Nukus</option>
+      <option value="Navoiy">Navoiy</option>
+      <option value="Andijon">Andijon</option>
+      <option value="Qarshi">Qarshi</option>
+      <option value="Jizzax">Jizzax</option>
+      <option value="Termiz">Termiz</option>
+      <option value="Guliston">Guliston</option>
+      <option value="Qo'qon">Qo'qon</option>
+      <option value="Marg'ilon">Marg'ilon</option>
+      <option value="Pop">Pop</option>
+      <option value="Namangan">Namangan</option>
+    </select>
+
+    <label for="to">Qayerga:</label>
+    <select id="to">
+      <option value="Toshkent" selected>Toshkent</option>
+      <option value="Hazorasp">Hazorasp</option>
+      <option value="Samarqand">Samarqand</option>
+      <option value="Buxoro">Buxoro</option>
+      <option value="Xiva">Xiva</option>
+      <option value="Urganch">Urganch</option>
+      <option value="Nukus">Nukus</option>
+      <option value="Navoiy">Navoiy</option>
+      <option value="Andijon">Andijon</option>
+      <option value="Qarshi">Qarshi</option>
+      <option value="Jizzax">Jizzax</option>
+      <option value="Termiz">Termiz</option>
+      <option value="Guliston">Guliston</option>
+      <option value="Qo'qon">Qo'qon</option>
+      <option value="Marg'ilon">Marg'ilon</option>
+      <option value="Pop">Pop</option>
+      <option value="Namangan">Namangan</option>
+    </select>
+
+    <label for="date">Jo'nash sanasi:</label>
+    <input type="date" id="date">
+
+    <label for="time">Jo'nash vaqti (Masalan: 21:45):</label>
+    <input type="text" id="time" placeholder="Bo'sh qolsa barcha poyezdlar">
+
+    <label>Vagon turi:</label>
+    <div class="checkbox-group">
+      <label class="checkbox-item"><input type="checkbox" id="carP" checked> Platskart</label>
+      <label class="checkbox-item"><input type="checkbox" id="carK" checked> Kupe</label>
+    </div>
+
+    <label>Joy turi:</label>
+    <div class="radio-group">
+      <label class="radio-item"><input type="radio" name="seat" value="ALL" checked> Hammasi</label>
+      <label class="radio-item"><input type="radio" name="seat" value="N"> Pastki</label>
+      <label class="radio-item"><input type="radio" name="seat" value="V"> Ustki</label>
+    </div>
+
+    <label style="margin-top: 15px;">Qo'shimcha:</label>
+    <div class="checkbox-group">
+      <label class="checkbox-item"><input type="checkbox" id="noSide"> 🚫 Baqavoy kerak emas</label>
+    </div>
+
+    <button class="btn btn-primary" onclick="sendWatch()">➕ Kuzatuvni boshlash</button>
+  </div>
+
+  <div class="card">
+    <button class="btn btn-secondary" onclick="sendCommand('/royxat')">📋 Ro'yxatni ko'rish</button>
+    <button class="btn btn-danger" onclick="sendCommand('/toxtat hammasi')">🛑 Hammasini to'xtatish</button>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+
+    // Bugungi sanani avtomatik tanlash
+    document.getElementById('date').valueAsDate = new Date();
+
+    // Botning Telegram API orqali to'g'ridan-to'g'ri xabar yuborish funksiyasi
+    async function sendCommand(cmd) {
+      // Telegram WebApp orqali sendData (standart usul)
+      try {
+        tg.sendData(cmd);
+      } catch (e) {}
+
+      // Bir vaqtning o'zida Telegram Bot API orqali foydalanuvchining o'ziga yuborish
+      const BOT_TOKEN = '5352474891:AAHBf9HpzX7xrxzrzbBOUM338HHOUOgVGFs';
+      const userId = tg.initDataUnsafe?.user?.id || '1401318163'; // Zaxira ID
+
+      try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: userId,
+            text: cmd
+          })
+        });
+      } catch (err) {
+        console.error("API xatosi:", err);
+      }
+
+      // Oynani yopish
+      tg.close();
+    }
+
+    function sendWatch() {
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      
+      const rawDate = document.getElementById('date').value;
+      if (!rawDate) {
+        alert("Iltimos, sanani tanlang!");
+        return;
+      }
+      const [y, m, d] = rawDate.split('-');
+      const formattedDate = `${d}.${m}.${y}`;
+
+      const time = document.getElementById('time').value.trim();
+      const carP = document.getElementById('carP').checked;
+      const carK = document.getElementById('carK').checked;
+      const seat = document.querySelector('input[name="seat"]:checked').value;
+      const noSide = document.getElementById('noSide').checked;
+
+      let cmd = `/kuzat ${from} ${to} ${formattedDate}`;
+
+      if (time) cmd += ` ${time}`;
+      if (carP && !carK) cmd += ` P`;
+      else if (!carP && carK) cmd += ` K`;
+      if (seat !== 'ALL') cmd += ` ${seat}`;
+      if (noSide) cmd += ` BEZ`;
+
+      sendCommand(cmd);
+    }
+  </script>
+</body>
+</html>
